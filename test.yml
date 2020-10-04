@@ -1,50 +1,49 @@
-
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-name: $(BuildDefinitionName)_$(SourceBranchName)_$(date:yyyyMMdd)$(rev:.r)
-
-trigger:
-  branches:
-    include:
-    - '*'
-
-variables:
-  BuildPlatform: 'any cpu'
-  BuildConfiguration: 'release'
-
-stages:
-- stage: provision_to_feature_env
-  displayName: 'Provision resources to feature environment'
-  jobs:
-  - job: feature_provisioning
-    displayName: 'Feature env provisioning job'
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-    - script: echo provisioning to feature environment
-      displayName: 'Feature environment provisioning'
-
-- stage: provision_to_develop_env
-  displayName: 'Provision resources to develop environment'
-  jobs:
-  - job: develop_provisioning
-    displayName: 'Develop env provisioning job'
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-    - script: echo provisioning to develop environment
-      displayName: 'Develop environment provisioning'
-
-- stage: provision_to_production_env
-  displayName: 'Provision resources to production environment'
-  jobs:
-  - job: production_provisioning
-    displayName: 'Prodduction env provisioning job'
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-    - script: echo provisioning to production environment
-      displayName: 'production environment provisioning'
-view rawazure.yaml hosted with ❤ by GitHub
+--- 
+name: "$(BuildDefinitionName)_$(SourceBranchName)_$(date:yyyyMMdd)$(rev:.r)"
+stages: 
+  - 
+    displayName: "Provision resources to feature environment"
+    jobs: 
+      - 
+        displayName: "Feature env provisioning job"
+        job: feature_provisioning
+        pool: 
+          vmImage: ubuntu-latest
+        steps: 
+          - 
+            displayName: "Feature environment provisioning"
+            script: "echo provisioning to feature environment"
+    stage: provision_to_feature_env
+  - 
+    displayName: "Provision resources to develop environment"
+    jobs: 
+      - 
+        displayName: "Develop env provisioning job"
+        job: develop_provisioning
+        pool: 
+          vmImage: ubuntu-latest
+        steps: 
+          - 
+            displayName: "Develop environment provisioning"
+            script: "echo provisioning to develop environment"
+    stage: provision_to_develop_env
+  - 
+    displayName: "Provision resources to production environment"
+    jobs: 
+      - 
+        displayName: "Prodduction env provisioning job"
+        job: production_provisioning
+        pool: 
+          vmImage: ubuntu-latest
+        steps: 
+          - 
+            displayName: "production environment provisioning"
+            script: "echo provisioning to production environment"
+    stage: provision_to_production_env
+trigger: 
+  branches: 
+    include: 
+      - "*"
+variables: 
+  BuildConfiguration: release
+  BuildPlatform: "any cpu"
